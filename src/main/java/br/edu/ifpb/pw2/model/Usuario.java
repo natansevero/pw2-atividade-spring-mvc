@@ -5,6 +5,12 @@
  */
 package br.edu.ifpb.pw2.model;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  *
  * @author natan
@@ -14,11 +20,11 @@ public class Usuario {
     private int id;
     private String nomeUsuario;
     private String senha;
-    private byte[] foto;
+    private MultipartFile foto;
 
     public Usuario() { }
     
-    public Usuario(String nomeUsuario, String senha, byte[] foto) {
+    public Usuario(String nomeUsuario, String senha, MultipartFile foto) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
         this.foto = foto;
@@ -48,17 +54,22 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public byte[] getFoto() {
+    public MultipartFile getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(MultipartFile foto) {
         this.foto = foto;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nomeUsuario=" + nomeUsuario + ", senha=" + senha + ", foto=" + foto + '}';
+        try {
+            return "Usuario{" + "id=" + id + ", nomeUsuario=" + nomeUsuario + ", senha=" + senha + ", foto=" + Arrays.toString(foto.getBytes()) + '}';
+        } catch (IOException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

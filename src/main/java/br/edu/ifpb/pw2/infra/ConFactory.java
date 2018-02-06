@@ -21,6 +21,6 @@ public class ConFactory {
     @Bean
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:h2:mem:;"
-                + "INIT=RUNSCRIPT FROM './src/main/resources/create_schema.sql'\\;", "sa", "");
+                + "INIT=RUNSCRIPT FROM './src/main/resources/init.sql'\\;", "sa", "");
     }
 }

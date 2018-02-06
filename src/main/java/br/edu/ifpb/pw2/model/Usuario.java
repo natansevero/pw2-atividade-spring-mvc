@@ -16,6 +16,8 @@ public class Usuario {
     private String senha;
     private byte[] foto;
 
+    public Usuario() { }
+    
     public Usuario(String nomeUsuario, String senha, byte[] foto) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;

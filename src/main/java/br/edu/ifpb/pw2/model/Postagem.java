@@ -12,8 +12,11 @@ package br.edu.ifpb.pw2.model;
 public class Postagem {
     
     public int id;
+    public int id_usuario;
     public String mensagem;
 
+    public Postagem() {  };
+    
     public Postagem(String mensagem) {
         this.mensagem = mensagem;
     }
@@ -26,6 +29,14 @@ public class Postagem {
         this.id = id;
     }
 
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
     public String getMensagem() {
         return mensagem;
     }
@@ -36,7 +47,8 @@ public class Postagem {
 
     @Override
     public String toString() {
-        return "Postagem{" + "id=" + id + ", mensagem=" + mensagem + '}';
+        return "Postagem{" + "id=" + id + ", id_usuario=" + id_usuario + ", mensagem=" + mensagem + '}';
     }
+
     
 }

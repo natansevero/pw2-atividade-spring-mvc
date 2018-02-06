@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface UsuarioDao {
     boolean adicionar(Usuario usuario);
-    Usuario buscarPorUm(int id);
+    Usuario buscarPorNomeUsuarioESenha(Usuario usuario);
     List<Usuario> buscarTodos();
 }

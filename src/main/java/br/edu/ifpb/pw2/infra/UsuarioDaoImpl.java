@@ -7,7 +7,14 @@ package br.edu.ifpb.pw2.infra;
 
 import br.edu.ifpb.pw2.interfaces.UsuarioDao;
 import br.edu.ifpb.pw2.model.Usuario;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,16 +30,78 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     @Override
     public boolean adicionar(Usuario usuario) {
+       String sql = "insert into usuario (nome_usuario, senha, foto) values (?,?,?)";
+       
+        try {
+            PreparedStatement stmt = con.getConnection().prepareStatement(sql);
+            stmt.setString(1, usuario.getNomeUsuario());
+            stmt.setString(2, usuario.getSenha());
+            stmt.setBytes(3, usuario.getFoto());
+            
+            return stmt.executeUpdate() > 0;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        return false; 
     }
 
     @Override
-    public Usuario buscarPorUm(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Usuario buscarPorNomeUsuarioESenha(Usuario usuario) {
+        String sql = "select nome_usuario, foto from usuario where usuario = ? and senha = ?";
+        
+        try {
+            PreparedStatement stmt = con.getConnection().prepareStatement(sql);
+            stmt.setString(1, usuario.getNomeUsuario());
+            stmt.setString(2, usuario.getSenha());
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            Usuario u = new Usuario();
+            
+            rs.next();
+            
+            usuario.setNomeUsuario(rs.getString(1));
+            usuario.setFoto(rs.getBytes(2));
+            
+            return u;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 
     @Override
     public List<Usuario> buscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "select * from usuario";
+        
+        try {
+            PreparedStatement stmt = con.getConnection().prepareStatement(sql);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            List<Usuario> usuarios = new ArrayList<>();
+            
+            while(rs.next()) {
+                Usuario usuario = new Usuario();
+                
+                usuario.setId(rs.getInt(1));
+                usuario.setNomeUsuario(rs.getString(2));
+                usuario.setSenha(rs.getString(3));
+                usuario.setFoto(rs.getBytes(4));
+                
+                usuarios.add(usuario);
+            }
+            
+            return usuarios;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return Collections.EMPTY_LIST;
     }
 }

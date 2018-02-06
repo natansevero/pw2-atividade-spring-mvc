@@ -13,6 +13,17 @@
     </head>
     <body>
         <h1>Cadastre-se no mini twitter</h1>
+        <form name="cadastrar" action="/atividade-spring-mvc/usuario/cadastrar" method="POST" enctype="multipart/form-data">
+            <label>Nome de Usuario</label>
+            <input type="text" name="nomeUsuario" /><br>
+            <label>Senha</label>
+            <input type="password" name="senha" /><br>
+            <label>Foto de perfil</label>
+            <input type="file" name="foto" /><br>
+            <input type="submit" value="Cadastrar" />
+        </form>
+        
+        <br>
         <p><a href="/atividade-spring-mvc/">Voltar</a></p>
     </body>
 </html>

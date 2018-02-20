@@ -8,7 +8,6 @@ package br.edu.ifpb.pw2.controller;
 import br.edu.ifpb.pw2.interfaces.UsuarioDao;
 import br.edu.ifpb.pw2.model.Usuario;
 import java.io.IOException;
-import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/usuario")
-public class UserController {
+public class UserController {   
     
     @Autowired
     private UsuarioDao dao;
@@ -46,6 +45,7 @@ public class UserController {
             return "redirect:/";
             
         } else {
+            // render
             return "/cadastro.jsp";
         }
         

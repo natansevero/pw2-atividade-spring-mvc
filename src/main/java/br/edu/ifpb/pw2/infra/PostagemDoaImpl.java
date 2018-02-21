@@ -7,6 +7,7 @@ package br.edu.ifpb.pw2.infra;
 
 import br.edu.ifpb.pw2.interfaces.PostagemDao;
 import br.edu.ifpb.pw2.model.Postagem;
+import br.edu.ifpb.pw2.model.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +34,7 @@ public class PostagemDoaImpl implements PostagemDao {
         String sql = "insert into postagem (id_usuario, mensagem) values (?,?)";
         try {
             PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
-            prepareStatement.setInt(1, postagem.id_usuario);
+            prepareStatement.setInt(1, postagem.getUsuario().getId());
             prepareStatement.setString(2, postagem.getMensagem());
             
             return prepareStatement.executeUpdate() > 0;
@@ -45,11 +46,12 @@ public class PostagemDoaImpl implements PostagemDao {
     }
 
     @Override
-    public List<Postagem> buscarTodoas() {
-        String sql = "select * from postagem";
+    public List<Postagem> buscarTodosPostsDoUsuario(Usuario usuario) {
+        String sql = "select * from postagem where id_usuario = ?";
         
         try {
             PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
+            prepareStatement.setInt(1, usuario.getId());
             
             ResultSet rs = prepareStatement.executeQuery();
             
@@ -57,8 +59,11 @@ public class PostagemDoaImpl implements PostagemDao {
             
             while(rs.next()) {
                 Postagem postagem = new Postagem();
+                Usuario u = new Usuario();
+                
                 postagem.setId(rs.getInt(1));
-                postagem.setId_usuario(rs.getInt(2));
+                u.setId(rs.getInt(2));
+                postagem.setUsuario(u);
                 postagem.setMensagem(rs.getString(3));
                 
                 postagens.add(postagem);
@@ -74,8 +79,8 @@ public class PostagemDoaImpl implements PostagemDao {
     }
 
     @Override
-    public Postagem buscarPorUm(int id) {
-        String sql = "select * from postagem where id = ?";
+    public Postagem buscarPorId(int id) {
+        String sql = "select p.mensagem, u.nome_usuario, u.foto from postagem p, usuario u where p.id = ? and p.id_usuario = u.id";
         
         try {
             PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
@@ -86,9 +91,14 @@ public class PostagemDoaImpl implements PostagemDao {
             rs.next();
             
             Postagem postagem = new Postagem();
-            postagem.setId(rs.getInt(1));
-            postagem.setId_usuario(rs.getInt(2));
-            postagem.setMensagem(rs.getString(3));
+            Usuario usuario = new Usuario();
+            
+            postagem.setMensagem(rs.getString(1));
+            usuario.setNomeUsuario(rs.getString(2));
+            usuario.setFoto(rs.getString(3));
+            postagem.setUsuario(usuario);
+            
+            return postagem;
             
         } catch (SQLException ex) {
             Logger.getLogger(PostagemDoaImpl.class.getName()).log(Level.SEVERE, null, ex);

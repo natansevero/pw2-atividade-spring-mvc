@@ -5,13 +5,16 @@
  */
 package br.edu.ifpb.pw2.controller;
 
+import br.edu.ifpb.pw2.interfaces.PostagemDao;
 import br.edu.ifpb.pw2.interfaces.UsuarioDao;
+import br.edu.ifpb.pw2.model.Postagem;
 import br.edu.ifpb.pw2.model.Usuario;
-import java.io.IOException;
-import java.util.Base64;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,9 @@ public class InitialController {
     
     @Autowired
     private UsuarioDao usuarioDao;
+    
+    @Autowired
+    private PostagemDao postagemDao;
     
     @RequestMapping(method = RequestMethod.GET)
     public String redenizarPaginaLogin() {
@@ -45,18 +51,14 @@ public class InitialController {
         
         if(usuarioConsultado == null) {
             return "redirect:/";
-        } else { 
-            byte[] encoded = null;
-            try {
-                encoded = Base64.getEncoder().encode(usuarioConsultado.getFoto().getBytes());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        } else {     
+            List<Postagem> postagens = postagemDao.buscarTodosPostsDoUsuario(usuarioConsultado);
             
             synchronized(session) {
                session.setAttribute("id_usuario", usuarioConsultado.getId());
                session.setAttribute("nome_usuario", usuarioConsultado.getNomeUsuario());
-               session.setAttribute("foto", new String(encoded));
+               session.setAttribute("foto", usuarioConsultado.getFoto());
+               session.setAttribute("postagens", postagens);
             }
             
             return "redirect:/feed";
@@ -73,5 +75,23 @@ public class InitialController {
     @RequestMapping(value = "/feed", method = RequestMethod.GET)
     public String redenizarPaginaFeed() {
         return "/feed.jsp";
+    }
+    
+    @RequestMapping(value = "@{nome}", method = RequestMethod.GET)
+    public String visualizarUmUsuario(@PathVariable String nome, ModelMap modelMap) {
+        
+        Usuario usuario = usuarioDao.buscarPorNome(nome);
+        
+        if(usuario == null) return "/404.jsp";
+        else {
+            List<Postagem> postagens = postagemDao.buscarTodosPostsDoUsuario(usuario);
+            
+            modelMap.addAttribute("usuario", usuario);
+            modelMap.addAttribute("postagens", postagens);
+                    
+            return "/usuario.jsp";
+        }
+        
+        
     }
 }

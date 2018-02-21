@@ -9,9 +9,31 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Usuario</title>
+        <title>${usuario.nomeUsuario}</title>
     </head>
     <body>
-        <h1>Pagina para mostrar um usuario e suas postagens</h1>
+        <body align="center">
+        
+        <div class="user">   
+            <p><img src="${usuario.foto}" /></p>
+            <p>@${usuario.nomeUsuario}</p>
+        </div>
+            
+        <hr>
+        
+        <h3>Posts</h3>
+        
+        <c:if test="${not empty postagens}">
+            <c:forEach var="postagem" items="${postagens}">
+                <div>
+                    <p><img src="${usuario.foto}" /></p>
+                    <p>@${usuario.nomeUsuario}</p>
+                    <p>${postagem.mensagem}<p>
+                    <a href="postagem/${postagem.id}">Link do post</a>
+                </div>
+
+                <br><br>    
+            </c:forEach>      
+        </c:if>
     </body>
 </html>

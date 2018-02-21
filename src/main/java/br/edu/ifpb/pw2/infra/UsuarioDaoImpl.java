@@ -7,7 +7,6 @@ package br.edu.ifpb.pw2.infra;
 
 import br.edu.ifpb.pw2.interfaces.UsuarioDao;
 import br.edu.ifpb.pw2.model.Usuario;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,11 +36,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
             PreparedStatement stmt = con.getConnection().prepareStatement(sql);
             stmt.setString(1, usuario.getNomeUsuario());
             stmt.setString(2, usuario.getSenha());
-            stmt.setBytes(3, usuario.getFoto().getBytes());
+            stmt.setString(3, usuario.getFoto());
             
             return stmt.executeUpdate() > 0;
             
-        } catch (SQLException | IOException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -65,9 +64,35 @@ public class UsuarioDaoImpl implements UsuarioDao {
             
             u.setId(rs.getInt(1));
             u.setNomeUsuario(rs.getString(2));
-            u.setFoto(new CustomMultiPartFile(rs.getBytes(3)));
+            u.setFoto(rs.getString(3));
             
             return u;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    @Override
+    public Usuario buscarPorNome(String nome) {
+        String sql = "select id, nome_usuario, foto from usuario where nome_usuario = ?";
+        
+        try {
+            PreparedStatement stmt = con.getConnection().prepareStatement(sql);
+            stmt.setString(1, nome);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            rs.next();
+            
+            Usuario usuario = new Usuario();
+            usuario.setId(rs.getInt(1));
+            usuario.setNomeUsuario(rs.getString(2));
+            usuario.setFoto(rs.getString(3));
+            
+            return usuario;
             
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,7 +118,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 usuario.setId(rs.getInt(1));
                 usuario.setNomeUsuario(rs.getString(2));
                 usuario.setSenha(rs.getString(3));
-                usuario.setFoto(new CustomMultiPartFile(rs.getBytes(4)));
+                usuario.setFoto(rs.getString(4));
                 
                 usuarios.add(usuario);
             }

@@ -2,7 +2,7 @@ create table usuario (
     id serial,
     nome_usuario varchar(255) not null unique,
     senha varchar(20) not null,
-    foto bytea not null,
+    foto text not null,
     primary key(id)
 );
 

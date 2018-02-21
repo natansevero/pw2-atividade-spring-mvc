@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.edu.ifpb.pw2.model;
+
+import java.io.Serializable;
 
 /**
  *
  * @author natan
  */
-public class Postagem {
+public class Postagem implements Serializable {
     
     public int id;
-    public int id_usuario;
+    public Usuario usuario;
     public String mensagem;
 
     public Postagem() {  };
@@ -29,12 +27,12 @@ public class Postagem {
         this.id = id;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     public String getMensagem() {
@@ -47,7 +45,7 @@ public class Postagem {
 
     @Override
     public String toString() {
-        return "Postagem{" + "id=" + id + ", id_usuario=" + id_usuario + ", mensagem=" + mensagem + '}';
+        return "Postagem{" + "id=" + id + ", id_usuario=" + usuario.toString() + ", mensagem=" + mensagem + '}';
     }
 
     

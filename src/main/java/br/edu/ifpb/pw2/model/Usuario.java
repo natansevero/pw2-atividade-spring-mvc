@@ -1,30 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.edu.ifpb.pw2.model;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.springframework.web.multipart.MultipartFile;
+import java.io.Serializable;
 
 /**
  *
  * @author natan
  */
-public class Usuario {
+public class Usuario implements Serializable {
     
     private int id;
     private String nomeUsuario;
     private String senha;
-    private MultipartFile foto;
+    private String foto;
 
     public Usuario() { }
     
-    public Usuario(String nomeUsuario, String senha, MultipartFile foto) {
+    public Usuario(String nomeUsuario, String senha, String foto) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
         this.foto = foto;
@@ -54,22 +46,17 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public MultipartFile getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(MultipartFile foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
     @Override
     public String toString() {
-        try {
-            return "Usuario{" + "id=" + id + ", nomeUsuario=" + nomeUsuario + ", senha=" + senha + ", foto=" + Arrays.toString(foto.getBytes()) + '}';
-        } catch (IOException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        return "Usuario{" + "id=" + id + ", nomeUsuario=" + nomeUsuario + ", senha=" + senha + ", foto=" + foto + '}';
     }
 
 }

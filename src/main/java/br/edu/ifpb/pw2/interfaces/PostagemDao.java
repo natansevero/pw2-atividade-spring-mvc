@@ -6,6 +6,7 @@
 package br.edu.ifpb.pw2.interfaces;
 
 import br.edu.ifpb.pw2.model.Postagem;
+import br.edu.ifpb.pw2.model.Usuario;
 import java.util.List;
 
 /**
@@ -14,6 +15,6 @@ import java.util.List;
  */
 public interface PostagemDao {
     boolean adicionar(Postagem postagem);
-    List<Postagem> buscarTodoas();
-    Postagem buscarPorUm(int id);
+    List<Postagem> buscarTodosPostsDoUsuario(Usuario usuario);
+    Postagem buscarPorId(int id);
 }

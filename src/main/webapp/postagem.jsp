@@ -13,8 +13,11 @@
     </head>
     <body align="center">
         <div>
-            <p>foto - @hajkd</p>
-            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos in quaerat eum commodi eligendi laboriosam error maiores incidunt provident officiis exercitationem debitis vero ipsum ducimus, repellat porro optio nobis! <p>
+            <p>@${postagem.usuario.nomeUsuario}</p>
+            <p>
+                <img src="${postagem.usuario.foto}" />
+            </p>
+            <p> ${postagem.mensagem} <p>
         </div>
     </body>
 </html>

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +17,7 @@
             <p><a href="sair">SAIR</a></p>
         </div>
         <div class="user">   
-            <p><img src="data:image/jpeg;base64,${sessionScope.foto}" /></p>
+            <p><img src="${sessionScope.foto}" /></p>
             <p>@${sessionScope.nome_usuario}</p>
         </div>
         <div>
@@ -31,17 +32,20 @@
         
         <h3>Posts</h3>
         
-        <div>
-            <p>foto - @hajkd</p>
-            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos in quaerat eum commodi eligendi laboriosam error maiores incidunt provident officiis exercitationem debitis vero ipsum ducimus, repellat porro optio nobis! <p>
-            <a href="">Link do post</a>
-        </div>
-        <br><br>
-        <div>
-            <p>foto - @hajkd</p>
-            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos in quaerat eum commodi eligendi laboriosam error maiores incidunt provident officiis exercitationem debitis vero ipsum ducimus, repellat porro optio nobis! <p>
-            <a href="">Link do post</a>
-        </div>
+        <c:if test="${not empty sessionScope.postagens}">
+            <c:forEach var="postagem" items="${sessionScope.postagens}">
+                <div>
+                    <p><img src="${sessionScope.foto}" /></p>
+                    <p>@${sessionScope.nome_usuario}</p>
+                    <p>${postagem.mensagem}<p>
+                    <a href="postagem/${postagem.id}">Link do post</a>
+                </div>
+
+                <br><br>    
+            </c:forEach>      
+        </c:if>
+        
+        
         
     </body>
 </html>

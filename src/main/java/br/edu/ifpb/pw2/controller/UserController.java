@@ -38,16 +38,17 @@ public class UserController {
         
         if(dao.adicionar(usuario)) {
             
-            dao.buscarTodos().stream().forEach(u -> {
-                System.out.println(u);
-            });
+//            dao.buscarTodos().stream().forEach(u -> {
+//                System.out.println(u);
+//            });
             
             return "redirect:/";
             
         } else {
             // render
             return "/cadastro.jsp";
-        }
-        
+        }   
     }
+    
+    
 }

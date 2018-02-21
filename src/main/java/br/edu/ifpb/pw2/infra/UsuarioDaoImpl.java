@@ -7,8 +7,6 @@ package br.edu.ifpb.pw2.infra;
 
 import br.edu.ifpb.pw2.interfaces.UsuarioDao;
 import br.edu.ifpb.pw2.model.Usuario;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  *
@@ -54,7 +50,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     @Override
     public Usuario buscarPorNomeUsuarioESenha(Usuario usuario) {
-        String sql = "select nome_usuario, foto from usuario where usuario = ? and senha = ?";
+        String sql = "select id, nome_usuario, foto from usuario where nome_usuario = ? and senha = ?";
         
         try {
             PreparedStatement stmt = con.getConnection().prepareStatement(sql);
@@ -67,8 +63,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
             
             rs.next();
             
-            usuario.setNomeUsuario(rs.getString(1));
-            usuario.setFoto(new CustomMultiPartFile(rs.getBytes(2)));
+            u.setId(rs.getInt(1));
+            u.setNomeUsuario(rs.getString(2));
+            u.setFoto(new CustomMultiPartFile(rs.getBytes(3)));
             
             return u;
             

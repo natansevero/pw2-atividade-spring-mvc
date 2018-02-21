@@ -12,13 +12,16 @@
         <title>Home</title>
     </head>
     <body align="center">
+        <div>
+            <p><a href="sair">SAIR</a></p>
+        </div>
         <div class="user">   
-            <p>Foto do usuário</p>
-            <p>@jksfkd</p>
+            <p><img src="data:image/jpeg;base64,${sessionScope.foto}" /></p>
+            <p>@${sessionScope.nome_usuario}</p>
         </div>
         <div>
-            <form action="post">
-                <textarea name="messagem" cols="30" rows="10" placeholder="O que você está tramando?"></textarea>
+            <form action="postagem/adicionar" method="post">
+                <textarea name="mensagem" cols="30" rows="10" placeholder="O que você está tramando?"></textarea>
                 <br>
                 <input type="submit" value="enviar" />
             </form>

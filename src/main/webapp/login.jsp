@@ -15,7 +15,7 @@
         <h1>Mini Twitter - Atividade Spring MVC</h1>
         <h2>Login</h2>
         
-        <form name="login" method="POST">
+        <form name="login" method="POST" action="entrar">
             <label>Usuario: </label>
             <input type="text" name="usuario" /> <br>
             <label>Senha: </label>
@@ -25,6 +25,6 @@
         
         <br>
         
-        Se ainda não possui conta, <a href="/atividade-spring-mvc/usuario/cadastro">Cadastre-se</a>
+        Se ainda não possui conta, <a href="usuario/cadastro">Cadastre-se</a>
     </body>
 </html>

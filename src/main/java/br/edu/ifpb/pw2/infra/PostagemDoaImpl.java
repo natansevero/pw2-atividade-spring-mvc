@@ -16,11 +16,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author natan
  */
+@Repository
 public class PostagemDoaImpl implements PostagemDao {
 
     @Autowired
@@ -28,7 +30,7 @@ public class PostagemDoaImpl implements PostagemDao {
     
     @Override
     public boolean adicionar(Postagem postagem) {
-        String sql = "insert into usuario (id_usuario, mensagem) values (?,?)";
+        String sql = "insert into postagem (id_usuario, mensagem) values (?,?)";
         try {
             PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
             prepareStatement.setInt(1, postagem.id_usuario);

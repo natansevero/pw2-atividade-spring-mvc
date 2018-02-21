@@ -10,21 +10,40 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mini Twitter</title>
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>Mini Twitter - Atividade Spring MVC</h1>
-        <h2>Login</h2>
+        <div class="container">
+            <div class="col-md-12" style="text-align: center">
+                <h1>Mini Twitter/h1>
+                <h2>Login</h2>
+            </div>
+            
+            <form name="login" method="POST" action="entrar">
+                <div class="form-group">
+                    <label>Usuario: </label>
+                    <input type="text" name="usuario" class="form-control" />    
+                </div>
+                <div class="form-group">
+                    <label>Senha: </label>
+                    <input type="password" name="senha" class="form-control" />    
+                </div>
+                <br>
+                <input type="submit" value="Entrar" class="btn btn-default" />
+            </form>
+
+            <br>
+
+            Se ainda não possui conta, <a href="usuario/cadastro">Cadastre-se</a>
+        </div>
         
-        <form name="login" method="POST" action="entrar">
-            <label>Usuario: </label>
-            <input type="text" name="usuario" /> <br>
-            <label>Senha: </label>
-            <input type="password" name="senha" /> <br>
-            <input type="submit" value="Entrar" />
-        </form>
-        
-        <br>
-        
-        Se ainda não possui conta, <a href="usuario/cadastro">Cadastre-se</a>
     </body>
+    
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </html>

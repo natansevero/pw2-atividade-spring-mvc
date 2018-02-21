@@ -17,7 +17,7 @@
     <body>
         <div class="container">
             <div class="col-md-12" style="text-align: center">
-                <h1>Cadastre-se no mini twitter</h1>            
+                <h1>Cadastre-se no Microblog</h1>            
             </div>
             
             <form action="cadastrar" method="POST" enctype="multipart/form-data">

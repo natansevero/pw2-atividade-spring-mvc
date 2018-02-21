@@ -95,7 +95,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
             return usuario;
             
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Usuario nao existe");
         }
         
         return null;

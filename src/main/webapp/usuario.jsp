@@ -16,29 +16,55 @@
 
     </head>
     <body>
-        <body align="center">
-        
-        <div class="user">   
-            <p><img src="${usuario.foto}" /></p>
-            <p>@${usuario.nomeUsuario}</p>
-        </div>
+  
+        <div class="container" style="padding-top: 20px;">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="row" style="border: 1px solid black;">
+                        <c:if test="${not empty postagens}">
+                            <c:forEach var="postagem" items="${postagens}">
+                                <div class="row" style="border: 1px solid black; margin: 10px; padding: 10px">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <img src="${usuario.foto}" width="48" height="48" />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>@${usuario.nomeUsuario}</p>
+                                            <p>${postagem.mensagem}<p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" style="text-align: center">
+                                        <a href="postagem/${postagem.id}">Link do post</a>
+                                    </div>    
             
-        <hr>
-        
-        <h3>Posts</h3>
-        
-        <c:if test="${not empty postagens}">
-            <c:forEach var="postagem" items="${postagens}">
-                <div>
-                    <p><img src="${usuario.foto}" /></p>
-                    <p>@${usuario.nomeUsuario}</p>
-                    <p>${postagem.mensagem}<p>
-                    <a href="postagem/${postagem.id}">Link do post</a>
+                                </div>
+                            </c:forEach>      
+                        </c:if> 
+                    </div>
+                    
                 </div>
 
-                <br><br>    
-            </c:forEach>      
-        </c:if>
+                <div class="col-md-3" >
+                    <div class="row">
+                        <div style="padding: 0 10px 0 10px">
+                            <img src="${usuario.foto}" height="190" class="col-md-12" /> <br>
+                            <div class="col-md-12">@${usuario.nomeUsuario}</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div style="margin: 10px 10px 0 10px">
+                            <a href="feed" class="btn btn-success col-md-12">Home</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- row -->
+        </div> <!-- container -->        
+                
+                
+                
     </body>
     
         <!-- jQuery library -->

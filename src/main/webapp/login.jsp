@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mini Twitter</title>
+        <title>Microblog</title>
         
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
     <body>
         <div class="container">
             <div class="col-md-12" style="text-align: center">
-                <h1>Mini Twitter/h1>
+                <h1>Microblog</h1>
                 <h2>Login</h2>
             </div>
             

@@ -15,14 +15,26 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
        
     </head>
-    <body align="center">
-        <div>
-            <p>@${postagem.usuario.nomeUsuario}</p>
-            <p>
-                <img src="${postagem.usuario.foto}" />
-            </p>
-            <p> ${postagem.mensagem} <p>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="border: 1px solid black; margin: 20px; padding: 10px">
+                    <div class="col-md-1">
+                        <img src="${postagem.usuario.foto}" width="48" height="48" />
+                    </div>
+                    <div class="col-md-8">
+                        <p>@${postagem.usuario.nomeUsuario}</p>
+                        <p> ${postagem.mensagem} <p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" style="text-align: center">
+                <p><a href="javascript:history.back()" class="btn btn-primary">Voltar</a></p> 
+            </div>
         </div>
+        
     </body>
     
         <!-- jQuery library -->

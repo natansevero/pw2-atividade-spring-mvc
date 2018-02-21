@@ -16,9 +16,10 @@
 
     </head>
     <body align="center">
+        <a href="javascript:history.back()" style="padding: 10px; margin: 20px 0 10px 0" class="btn btn-primary">Voltar</a>
+        <br>
         <img src="https://http.cat/404" />
         
-        <a href="javascript:history.back()">Voltar</a>
     </body>
     
         <!-- jQuery library -->

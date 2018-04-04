@@ -57,7 +57,7 @@ public class PostagemController {
 //        
         modelMap.addAttribute("postagem", postagem);
         
-        return "/postagem.jsp";
+        return "postagem";
     }
     
 }

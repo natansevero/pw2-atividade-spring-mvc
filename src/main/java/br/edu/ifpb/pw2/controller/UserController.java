@@ -28,11 +28,6 @@ public class UserController {
     @Autowired
     private UsuarioDao usuarioDao;
     
-    @RequestMapping(value = "/cadastro", method = RequestMethod.GET)
-    public String redenizarPaginaCadastro() {
-        return "/cadastro.jsp";
-    }
-    
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
     public String cadastrarUsuario(@RequestParam String nomeUsuario, @RequestParam String senha, @RequestParam MultipartFile foto) throws IOException {
 //        System.out.println(nomeUsuario);
@@ -61,7 +56,7 @@ public class UserController {
             
         } else {
             // render
-            return "/cadastro.jsp";
+            return "redirect:/cadastro";
         }   
 
     }

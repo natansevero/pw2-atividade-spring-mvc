@@ -36,7 +36,12 @@ public class InitialController {
     
     @RequestMapping(method = RequestMethod.GET)
     public String redenizarPaginaLogin() {
-        return "/login.jsp";
+        return "login";
+    }
+    
+    @RequestMapping(value = "/cadastro", method = RequestMethod.GET)
+    public String redenizarPaginaCadastro() {
+        return "cadastro";
     }
     
     @RequestMapping(value = "/entrar", method = RequestMethod.POST)
@@ -74,7 +79,7 @@ public class InitialController {
     
     @RequestMapping(value = "/feed", method = RequestMethod.GET)
     public String redenizarPaginaFeed() {
-        return "/feed.jsp";
+        return "feed";
     }
     
     @RequestMapping(value = "@{nome}", method = RequestMethod.GET)
@@ -82,14 +87,14 @@ public class InitialController {
         
         Usuario usuario = usuarioDao.buscarPorNome(nome);
         
-        if(usuario == null) return "/404.jsp";
+        if(usuario == null) return "404";
         else {
             List<Postagem> postagens = postagemDao.buscarTodosPostsDoUsuario(usuario);
             
             modelMap.addAttribute("usuario", usuario);
             modelMap.addAttribute("postagens", postagens);
                     
-            return "/usuario.jsp";
+            return "usuario";
         }
         
         

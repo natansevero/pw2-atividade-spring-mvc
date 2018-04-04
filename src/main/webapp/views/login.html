@@ -1,10 +1,4 @@
-<%-- 
-    Document   : login
-    Created on : 05/02/2018, 17:05:35
-    Author     : natan
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,20 +17,21 @@
             
             <form name="login" method="POST" action="entrar">
                 <div class="form-group">
-                    <label>Usuario: </label>
+                    <label th:text="#{login.labelUsuario}"></label>
                     <input type="text" name="usuario" class="form-control" />    
                 </div>
                 <div class="form-group">
-                    <label>Senha: </label>
+                    <label th:text="#{login.labelSenha}"></label>
                     <input type="password" name="senha" class="form-control" />    
                 </div>
                 <br>
-                <input type="submit" value="Entrar" class="btn btn-default" />
+                <!--<input type="submit" value="Entrar" class="btn btn-default" />-->
+                <button type="submit" class="btn btn-default" th:text="#{login.botaoEntrar}"></button>
             </form>
 
             <br>
 
-            Se ainda não possui conta, <a href="usuario/cadastro">Cadastre-se</a>
+            <span th:text="#{login.textoCadastrar}"></span> <a th:href="@{/cadastro}" th:text="#{login.linkCadastrar}"></a>
         </div>
         
     </body>

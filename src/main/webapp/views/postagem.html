@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Postagem</title>
+        <title th:text="#{postagem.tituloPagina}"></title>
         
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -25,7 +25,7 @@
             </div>
             
             <div class="row" style="text-align: center">
-                <p><a href="javascript:history.back()" class="btn btn-primary">Voltar</a></p> 
+                <p><a href="javascript:history.back()" class="btn btn-primary" th:text="#{allPages.botaoVoltar}"></a></p> 
             </div>
         </div>
         

@@ -83,7 +83,9 @@ public class InitialController {
     }
     
     @RequestMapping(value = "@{nome}", method = RequestMethod.GET)
-    public String visualizarUmUsuario(@PathVariable String nome, ModelMap modelMap) {
+    public String visualizarUmUsuario(@PathVariable String nome, @Autowired HttpSession session, ModelMap modelMap) {
+        
+        int idUsuario = (int) session.getAttribute("id_usuario");
         
         Usuario usuario = usuarioDao.buscarPorNome(nome);
         
@@ -93,7 +95,8 @@ public class InitialController {
             
             modelMap.addAttribute("usuario", usuario);
             modelMap.addAttribute("postagens", postagens);
-                    
+            modelMap.addAttribute("estaSeguindo", usuarioDao.verificarSeguindo(idUsuario, usuario.getId()));
+            
             return "usuario";
         }
         

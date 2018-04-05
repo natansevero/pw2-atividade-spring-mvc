@@ -13,3 +13,12 @@ create table postagem (
     primary key(id),
     foreign key(id_usuario) references usuario(id)
 );
+
+create table seguindo (
+    id serial,
+    id_usuario int not null,
+    id_seguindo int not null,
+    primary key(id),
+    foreign key(id_usuario) references usuario(id),
+    foreign key(id_seguindo) references usuario(id)
+)

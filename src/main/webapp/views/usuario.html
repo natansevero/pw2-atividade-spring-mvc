@@ -49,6 +49,13 @@
 
                     <div class="row">
                         <div style="margin: 10px 10px 0 10px">
+                            <div th:if="${estaSeguindo}">
+                                <a th:href="@{/usuario/desseguir/{id_seguindo}?nomeUsuario={nome_usuario} (id_seguindo = ${usuario.id}, nome_usuario = ${usuario.nomeUsuario}) }" class="btn btn-primary col-md-12" th:text="#{usuario.botaoSeguindo}"></a>
+                            </div>
+                            <div th:if="${not estaSeguindo}">
+                                <a th:href="@{/usuario/seguir/{id_seguir}?nomeUsuario={nome_usuario} (id_seguir = ${usuario.id}, nome_usuario = ${usuario.nomeUsuario}) }" class="btn btn-default col-md-12" th:text="#{usuario.botaoSeguir}"></a>
+                            </div>
+                            <br><br>
                             <a th:href="@{/feed}" class="btn btn-success col-md-12" th:text="#{usuario.botaoHome}"></a>
                         </div>
                     </div>

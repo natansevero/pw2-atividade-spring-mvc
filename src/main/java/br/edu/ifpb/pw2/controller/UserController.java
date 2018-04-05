@@ -10,8 +10,10 @@ import br.edu.ifpb.pw2.interfaces.UsuarioDao;
 import br.edu.ifpb.pw2.model.Usuario;
 import java.io.IOException;
 import java.util.Base64;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,5 +63,32 @@ public class UserController {
 
     }
     
+    @RequestMapping(value = "/seguir/{id_seguir}", method = RequestMethod.GET)
+    public String seguirUsuario(@PathVariable int id_seguir, @Autowired HttpSession session, @RequestParam String nomeUsuario) {
+        
+        int idUsuario = (int) session.getAttribute("id_usuario");
+        
+//        System.out.println(idUsuario + " " + id_seguir + " " + nomeUsuario);
+        
+        if(usuarioDao.seguirUsuario(idUsuario, id_seguir)) {
+            return "redirect:/@"+nomeUsuario;
+        }
+        
+       return "redirect:/feed";
+    }
+    
+    @RequestMapping(value = "/desseguir/{id_seguindo}", method = RequestMethod.GET)
+    public String deseguirUsuario(@PathVariable int id_seguindo, @Autowired HttpSession session, @RequestParam String nomeUsuario) {
+        
+        int idUsuario = (int) session.getAttribute("id_usuario");
+        
+//        System.out.println(idUsuario + " " + id_seguir + " " + nomeUsuario);
+        
+        if(usuarioDao.deixarSeguir(idUsuario, id_seguindo)) {
+            return "redirect:/@"+nomeUsuario;
+        }
+        
+       return "redirect:/feed";
+    }
     
 }

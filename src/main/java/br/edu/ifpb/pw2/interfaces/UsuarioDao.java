@@ -17,4 +17,7 @@ public interface UsuarioDao {
     Usuario buscarPorNomeUsuarioESenha(Usuario usuario);
     Usuario buscarPorNome(String nome);
     List<Usuario> buscarTodos();
+    boolean seguirUsuario(int idUsuario, int idSeguir);
+    boolean deixarSeguir(int idUsuario, int idSeguir);
+    boolean verificarSeguindo(int idUsuario, int idSeguir);
 }

@@ -2,6 +2,7 @@
 package br.edu.ifpb.pw2.controller;
 
 import br.edu.ifpb.pw2.interfaces.PostagemDao;
+import br.edu.ifpb.pw2.interfaces.PostagemFacade;
 import br.edu.ifpb.pw2.model.Postagem;
 import br.edu.ifpb.pw2.model.Usuario;
 import javax.servlet.http.HttpSession;
@@ -24,6 +25,9 @@ public class PostagemController {
     @Autowired
     private PostagemDao postagemDao;
     
+    @Autowired
+    private PostagemFacade postagemFacade;
+    
     @RequestMapping(value = "/adicionar", method = RequestMethod.POST)
     public String adicionarPostagem(@RequestParam String mensagem, @Autowired HttpSession session) {
         int idUsuarioLogado = (int) session.getAttribute("id_usuario");
@@ -35,11 +39,6 @@ public class PostagemController {
         postagem.setMensagem(mensagem);
         
         if(postagemDao.adicionar(postagem)) {
-            
-            synchronized(session) {
-                session.setAttribute("postagens", postagemDao.buscarTodosPostsDoUsuario(usuario));
-            }
-            
             return "redirect:/feed";
         }
         

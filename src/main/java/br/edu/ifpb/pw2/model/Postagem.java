@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  * @author natan
  */
-public class Postagem implements Serializable {
+public class Postagem implements Serializable, Comparable<Postagem> {
     
     public int id;
     public Usuario usuario;
@@ -42,10 +42,15 @@ public class Postagem implements Serializable {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
-
+    
     @Override
     public String toString() {
         return "Postagem{" + "id=" + id + ", id_usuario=" + usuario.toString() + ", mensagem=" + mensagem + '}';
+    }
+
+    @Override
+    public int compareTo(Postagem p) {
+        return p.getId() - this.getId();
     }
 
     

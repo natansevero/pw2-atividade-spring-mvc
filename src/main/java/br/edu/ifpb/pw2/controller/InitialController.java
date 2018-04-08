@@ -6,6 +6,7 @@
 package br.edu.ifpb.pw2.controller;
 
 import br.edu.ifpb.pw2.interfaces.PostagemDao;
+import br.edu.ifpb.pw2.interfaces.PostagemFacade;
 import br.edu.ifpb.pw2.interfaces.UsuarioDao;
 import br.edu.ifpb.pw2.model.Postagem;
 import br.edu.ifpb.pw2.model.Usuario;
@@ -34,6 +35,9 @@ public class InitialController {
     @Autowired
     private PostagemDao postagemDao;
     
+    @Autowired
+    private PostagemFacade postagemFacade;
+    
     @RequestMapping(method = RequestMethod.GET)
     public String redenizarPaginaLogin() {
         return "login";
@@ -56,14 +60,12 @@ public class InitialController {
         
         if(usuarioConsultado == null) {
             return "redirect:/";
-        } else {     
-            List<Postagem> postagens = postagemDao.buscarTodosPostsDoUsuario(usuarioConsultado);
+        } else {
             
             synchronized(session) {
                session.setAttribute("id_usuario", usuarioConsultado.getId());
                session.setAttribute("nome_usuario", usuarioConsultado.getNomeUsuario());
                session.setAttribute("foto", usuarioConsultado.getFoto());
-               session.setAttribute("postagens", postagens);
             }
             
             return "redirect:/feed";
@@ -78,7 +80,16 @@ public class InitialController {
     }
     
     @RequestMapping(value = "/feed", method = RequestMethod.GET)
-    public String redenizarPaginaFeed() {
+    public String redenizarPaginaFeed(@Autowired HttpSession session) {
+        int idUsuarioLogado = (int) session.getAttribute("id_usuario");
+        Usuario usuario = new Usuario();
+        usuario.setId(idUsuarioLogado);
+        
+        synchronized(session) {
+//                session.setAttribute("postagens", postagemDao.buscarTodosPostsDoUsuario(usuario));
+            session.setAttribute("postagens", postagemFacade.organizarPostagens(usuario));
+        }
+        
         return "feed";
     }
     

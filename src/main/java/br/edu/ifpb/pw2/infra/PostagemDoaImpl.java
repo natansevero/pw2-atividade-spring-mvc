@@ -47,7 +47,9 @@ public class PostagemDoaImpl implements PostagemDao {
 
     @Override
     public List<Postagem> buscarTodosPostsDoUsuario(Usuario usuario) {
-        String sql = "select * from postagem where id_usuario = ?";
+        String sql = "select u.nome_usuario, u.foto, p.id, p.id_usuario, p.mensagem " +
+                     "from postagem p, usuario u " +
+                     "where p.id_usuario = ? and u.id = p.id_usuario";
         
         try {
             PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
@@ -61,10 +63,12 @@ public class PostagemDoaImpl implements PostagemDao {
                 Postagem postagem = new Postagem();
                 Usuario u = new Usuario();
                 
-                postagem.setId(rs.getInt(1));
-                u.setId(rs.getInt(2));
+                u.setNomeUsuario(rs.getString(1));
+//                u.setFoto(rs.getString(2));
+                postagem.setId(rs.getInt(3));
+                u.setId(rs.getInt(4));
                 postagem.setUsuario(u);
-                postagem.setMensagem(rs.getString(3));
+                postagem.setMensagem(rs.getString(5));
                 
                 postagens.add(postagem);
             }
@@ -106,5 +110,46 @@ public class PostagemDoaImpl implements PostagemDao {
     
         return null;
     }
+
+    @Override
+    public List<Postagem> todosOsPostsParaFeed(Usuario usuario) {
+        String sql = "select u.nome_usuario, u.foto, p.id, p.id_usuario, p.mensagem " +
+                     "from seguindo s, postagem p, usuario u " +
+                     "where s.id_usuario = ? " +
+                     "and s.id_seguindo = p.id_usuario " +
+                     "and u.id = p.id_usuario";
+        
+        try {
+            PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
+            prepareStatement.setInt(1, usuario.getId());
+            
+            ResultSet rs = prepareStatement.executeQuery();
+            
+            List<Postagem> postagens = new ArrayList<>();
+            
+            while(rs.next()) {
+                Postagem postagem = new Postagem();
+                Usuario u = new Usuario();
+                
+                u.setNomeUsuario(rs.getString(1));
+//                u.setFoto(rs.getString(2));
+                postagem.setId(rs.getInt(3));
+                u.setId(rs.getInt(4));
+                postagem.setUsuario(u);
+                postagem.setMensagem(rs.getString(5));
+                
+                postagens.add(postagem);
+            }
+            
+            return postagens;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PostagemDoaImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+        return Collections.EMPTY_LIST;
+    }
+    
+    
     
 }

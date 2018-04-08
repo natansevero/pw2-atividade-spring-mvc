@@ -21,4 +21,4 @@ create table seguindo (
     primary key(id),
     foreign key(id_usuario) references usuario(id),
     foreign key(id_seguindo) references usuario(id)
-)
+);

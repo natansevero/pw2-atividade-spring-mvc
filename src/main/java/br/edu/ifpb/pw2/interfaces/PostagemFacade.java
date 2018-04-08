@@ -13,9 +13,6 @@ import java.util.List;
  *
  * @author natan
  */
-public interface PostagemDao {
-    boolean adicionar(Postagem postagem);
-    List<Postagem> buscarTodosPostsDoUsuario(Usuario usuario);
-    Postagem buscarPorId(int id);
-    List<Postagem> todosOsPostsParaFeed(Usuario usuario);
+public interface PostagemFacade {
+    List<Postagem> organizarPostagens(Usuario usuario);
 }

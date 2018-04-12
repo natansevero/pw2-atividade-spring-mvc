@@ -13,13 +13,15 @@ public class Usuario implements Serializable {
     private String nomeUsuario;
     private String senha;
     private String foto;
+    private String descricao;
 
     public Usuario() { }
     
-    public Usuario(String nomeUsuario, String senha, String foto) {
+    public Usuario(String nomeUsuario, String senha, String foto, String descricao) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
         this.foto = foto;
+        this.descricao = descricao;
     }
 
     public int getId() {
@@ -54,9 +56,17 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", nomeUsuario=" + nomeUsuario + ", senha=" + senha + ", foto=" + foto + '}';
+    public String getDescricao() {
+        return descricao;
     }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nomeUsuario=" + nomeUsuario + ", senha=" + senha + ", foto=" + foto + ", descricao=" + descricao + '}';
+    }
+    
 }

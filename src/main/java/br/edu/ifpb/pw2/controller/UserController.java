@@ -31,7 +31,7 @@ public class UserController {
     private UsuarioDao usuarioDao;
     
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-    public String cadastrarUsuario(@RequestParam String nomeUsuario, @RequestParam String senha, @RequestParam MultipartFile foto) throws IOException {
+    public String cadastrarUsuario(@RequestParam String nomeUsuario, @RequestParam String senha, @RequestParam MultipartFile foto, @RequestParam String descricao) throws IOException {
 //        System.out.println(nomeUsuario);
 //        System.out.println(senha);
 //        System.out.println(Arrays.toString(foto.getBytes()));
@@ -47,6 +47,7 @@ public class UserController {
         usuario.setNomeUsuario(nomeUsuario);
         usuario.setSenha(senha);
         usuario.setFoto("data:image/jpeg;base64," + new String(encoded));
+        usuario.setDescricao(descricao);
         
         if(usuarioDao.adicionar(usuario)) {
             

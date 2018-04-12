@@ -30,13 +30,14 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     @Override
     public boolean adicionar(Usuario usuario) {
-       String sql = "insert into usuario (nome_usuario, senha, foto) values (?,?,?)";
+       String sql = "insert into usuario (nome_usuario, senha, foto, descricao) values (?,?,?,?)";
        
         try {
             PreparedStatement stmt = con.getConnection().prepareStatement(sql);
             stmt.setString(1, usuario.getNomeUsuario());
             stmt.setString(2, usuario.getSenha());
             stmt.setString(3, usuario.getFoto());
+            stmt.setString(4, usuario.getDescricao());
             
             return stmt.executeUpdate() > 0;
             
@@ -49,7 +50,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     @Override
     public Usuario buscarPorNomeUsuarioESenha(Usuario usuario) {
-        String sql = "select id, nome_usuario, foto from usuario where nome_usuario = ? and senha = ?";
+        String sql = "select id, nome_usuario, foto, descricao from usuario where nome_usuario = ? and senha = ?";
         
         try {
             PreparedStatement stmt = con.getConnection().prepareStatement(sql);
@@ -65,6 +66,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
             u.setId(rs.getInt(1));
             u.setNomeUsuario(rs.getString(2));
             u.setFoto(rs.getString(3));
+            u.setDescricao(rs.getString(4));
             
             return u;
             
@@ -77,7 +79,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
     
     @Override
     public Usuario buscarPorNome(String nome) {
-        String sql = "select id, nome_usuario, foto from usuario where nome_usuario = ?";
+        String sql = "select id, nome_usuario, foto, descricao from usuario where nome_usuario = ?";
         
         try {
             PreparedStatement stmt = con.getConnection().prepareStatement(sql);
@@ -91,6 +93,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
             usuario.setId(rs.getInt(1));
             usuario.setNomeUsuario(rs.getString(2));
             usuario.setFoto(rs.getString(3));
+            usuario.setDescricao(rs.getString(4));
             
             return usuario;
             
@@ -119,6 +122,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 usuario.setNomeUsuario(rs.getString(2));
                 usuario.setSenha(rs.getString(3));
                 usuario.setFoto(rs.getString(4));
+                usuario.setDescricao(rs.getString(5));
                 
                 usuarios.add(usuario);
             }

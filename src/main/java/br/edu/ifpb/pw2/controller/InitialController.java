@@ -66,6 +66,7 @@ public class InitialController {
                session.setAttribute("id_usuario", usuarioConsultado.getId());
                session.setAttribute("nome_usuario", usuarioConsultado.getNomeUsuario());
                session.setAttribute("foto", usuarioConsultado.getFoto());
+               session.setAttribute("descricao", usuarioConsultado.getDescricao());
             }
             
             return "redirect:/feed";

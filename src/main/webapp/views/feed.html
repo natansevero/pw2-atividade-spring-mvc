@@ -34,11 +34,19 @@
                                         <div class="col-md-8">
                                             <p>@<span th:text="${postagem.usuario.nomeUsuario}"></span></p>
                                             <p><span th:text="${postagem.mensagem}"></span><p>
+                                            
                                         </div>
                                     </div>
                                     
                                     <div class="row" style="text-align: center">
-                                        <a th:href="@{/postagem/{id}(id = ${postagem.id})}" th:text="#{feed.linkPostagem}"></a>
+                                        <div class="col-md-offset-4 col-md-4">
+                                            <a th:href="@{/postagem/{id}(id = ${postagem.id})}" th:text="#{feed.linkPostagem}"></a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span th:if="${postagem.usuario.id == session.id_usuario}">
+                                                <a th:href="@{/postagem/excluir/{id}(id = ${postagem.id})}" class="btn btn-danger" th:text="#{feed.botaoExcluirPostagem}"></a>  
+                                            </span>
+                                        </div>
                                     </div>    
             
                                 </div>

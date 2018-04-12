@@ -12,7 +12,7 @@ create table postagem (
     id_usuario int not null,
     mensagem varchar(255) not null,
     primary key(id),
-    foreign key(id_usuario) references usuario(id)
+    foreign key(id_usuario) references usuario(id) on delete cascade
 );
 
 create table seguindo (
@@ -20,8 +20,8 @@ create table seguindo (
     id_usuario int not null,
     id_seguindo int not null,
     primary key(id),
-    foreign key(id_usuario) references usuario(id),
-    foreign key(id_seguindo) references usuario(id)
+    foreign key(id_usuario) references usuario(id) on delete cascade,
+    foreign key(id_seguindo) references usuario(id) on delete cascade
 );
 
 create table favorito (
@@ -29,8 +29,8 @@ create table favorito (
     id_usuario int not null,
     id_postagem int not null,
     primary key(id),
-    foreign key(id_usuario) references usuario(id),
-    foreign key(id_postagem) references postagem(id)
+    foreign key(id_usuario) references usuario(id) on delete cascade,
+    foreign key(id_postagem) references postagem(id) on delete cascade
 );
 
 insert into usuario(nome_usuario, senha, foto, descricao) values ('natan', '123', 'saodpasodps', 'Jogo FIFA e domino!');

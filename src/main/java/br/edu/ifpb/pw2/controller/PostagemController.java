@@ -46,6 +46,16 @@ public class PostagemController {
         return "redirect:/feed";
     }
     
+    @RequestMapping(value = "/excluir/{id}", method = RequestMethod.GET)
+    public String excluirPostagem(@PathVariable String id) {
+        
+        if(postagemDao.excluir(Integer.parseInt(id))) {
+            return "redirect:/feed";
+        }
+        
+        return "redirect:/feed";
+    }
+    
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String visualizarUmPost(@PathVariable String id, ModelMap modelMap, @Autowired HttpSession session) {
         

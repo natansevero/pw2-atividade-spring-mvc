@@ -150,6 +150,22 @@ public class PostagemDoaImpl implements PostagemDao {
     
         return Collections.EMPTY_LIST;
     }
+
+    @Override
+    public boolean excluir(int id) {
+        String sql = "delete from postagem where id = ?";
+        
+        try {
+            PreparedStatement stmt = con.getConnection().prepareStatement(sql);
+            stmt.setInt(1, id);
+            
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(PostagemDoaImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
     
     
     

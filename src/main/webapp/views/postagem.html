@@ -20,8 +20,11 @@
                     <div class="col-md-8">
                         <p>@<span th:text="${postagem.usuario.nomeUsuario}"></span></p>
                         <p><span th:text="${postagem.mensagem}"></span> <p>
-                        <p class="text-right">
+                        <p th:if="${not isFavorito}" class="text-right">
                             <a th:href="@{/postagem/favoritar/{id_postagem}(id_postagem = ${postagem.id})}" class="btn btn-info" th:text="#{postagem.favoritarPost}"></a>
+                        </p>
+                        <p th:if="${isFavorito}" class="text-right">
+                            <a th:href="@{/postagem/desfavoritar/{id_postagem}(id_postagem = ${postagem.id})}" class="btn btn-danger" th:text="#{postagem.desfavoritarPost}"></a>
                         </p>
                     </div>
                 </div>

@@ -101,5 +101,29 @@ public class FavoritoDaoImpl implements FavoritarDao {
     
         return Collections.EMPTY_LIST;
     }
+
+    @Override
+    public boolean verificarSePostFavorito(int idUsuario, int idPostagem) {
+        String sql = "select count(*) from favorito where id_usuario = ? and id_postagem = ?";
+        
+        try {
+            PreparedStatement stmt = con.getConnection().prepareStatement(sql);
+            stmt.setInt(1, idUsuario);
+            stmt.setInt(2, idPostagem);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            rs.next();
+            
+            if(rs.getInt(1) == 1) return true;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false; 
+    }
+    
+    
     
 }

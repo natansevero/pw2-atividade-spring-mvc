@@ -47,15 +47,18 @@ public class PostagemController {
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public String visualizarUmPost(@PathVariable String id, ModelMap modelMap) {
+    public String visualizarUmPost(@PathVariable String id, ModelMap modelMap, @Autowired HttpSession session) {
         
         int idPostagem = Integer.parseInt(id);
+        
+        int idUsuario = (int) session.getAttribute("id_usuario");
         
 //        System.out.println(idPostagem);
         
         Postagem postagem = postagemDao.buscarPorId(idPostagem);
-       
+        
         modelMap.addAttribute("postagem", postagem);
+        modelMap.addAttribute("isFavorito", favoritarDao.verificarSePostFavorito(idUsuario, idPostagem));
         
         return "postagem";
     }

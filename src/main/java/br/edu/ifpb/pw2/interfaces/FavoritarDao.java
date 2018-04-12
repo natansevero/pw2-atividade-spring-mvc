@@ -16,4 +16,5 @@ public interface FavoritarDao {
     boolean adicionar(int idUsuario, int idPostagem);
     boolean remover(int idUsuario, int idPostagem);
     List<Postagem> listarPostagensFavoritas(int idUsuario);
+    boolean verificarSePostFavorito(int idUsuario, int idPostagem);
 }

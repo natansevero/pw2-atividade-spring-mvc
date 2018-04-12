@@ -45,7 +45,7 @@
                             <img th:src="${usuario.foto}" height="190" class="col-md-12" /> <br>
                             <div class="col-md-12">@<span th:text="${usuario.nomeUsuario}"></span></div>
                             <div class="row">
-                                <div class="col-md-12"><span th:text="${usuario.descricao}"></span></div>    
+                                <div class="col-md-12" style="word-wrap: break-word;"><span th:text="${usuario.descricao}"></span></div>    
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             <div th:if="${estaSeguindo}">
                                 <a th:href="@{/usuario/desseguir/{id_seguindo}?nomeUsuario={nome_usuario} (id_seguindo = ${usuario.id}, nome_usuario = ${usuario.nomeUsuario}) }" class="btn btn-primary col-md-12" th:text="#{usuario.botaoSeguindo}"></a>
                             </div>
-                            <div th:if="${not estaSeguindo}">
+                            <div th:if="${not estaSeguindo and session.id_usuario ne usuario.id}">
                                 <a th:href="@{/usuario/seguir/{id_seguir}?nomeUsuario={nome_usuario} (id_seguir = ${usuario.id}, nome_usuario = ${usuario.nomeUsuario}) }" class="btn btn-default col-md-12" th:text="#{usuario.botaoSeguir}"></a>
                             </div>
                             <br><br>

@@ -64,7 +64,7 @@ public class PostagemDoaImpl implements PostagemDao {
                 Usuario u = new Usuario();
                 
                 u.setNomeUsuario(rs.getString(1));
-//                u.setFoto(rs.getString(2));
+                u.setFoto(rs.getString(2));
                 postagem.setId(rs.getInt(3));
                 u.setId(rs.getInt(4));
                 postagem.setUsuario(u);
@@ -84,7 +84,7 @@ public class PostagemDoaImpl implements PostagemDao {
 
     @Override
     public Postagem buscarPorId(int id) {
-        String sql = "select p.mensagem, u.nome_usuario, u.foto from postagem p, usuario u where p.id = ? and p.id_usuario = u.id";
+        String sql = "select p.id, p.mensagem, u.nome_usuario, u.foto from postagem p, usuario u where p.id = ? and p.id_usuario = u.id";
         
         try {
             PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
@@ -97,9 +97,10 @@ public class PostagemDoaImpl implements PostagemDao {
             Postagem postagem = new Postagem();
             Usuario usuario = new Usuario();
             
-            postagem.setMensagem(rs.getString(1));
-            usuario.setNomeUsuario(rs.getString(2));
-            usuario.setFoto(rs.getString(3));
+            postagem.setId(rs.getInt(1));
+            postagem.setMensagem(rs.getString(2));
+            usuario.setNomeUsuario(rs.getString(3));
+            usuario.setFoto(rs.getString(4));
             postagem.setUsuario(usuario);
             
             return postagem;
@@ -132,7 +133,7 @@ public class PostagemDoaImpl implements PostagemDao {
                 Usuario u = new Usuario();
                 
                 u.setNomeUsuario(rs.getString(1));
-//                u.setFoto(rs.getString(2));
+                u.setFoto(rs.getString(2));
                 postagem.setId(rs.getInt(3));
                 u.setId(rs.getInt(4));
                 postagem.setUsuario(u);

@@ -1,10 +1,11 @@
 
 package br.edu.ifpb.pw2.controller;
 
+import br.edu.ifpb.pw2.interfaces.FavoritarDao;
 import br.edu.ifpb.pw2.interfaces.PostagemDao;
-import br.edu.ifpb.pw2.interfaces.PostagemFacade;
 import br.edu.ifpb.pw2.model.Postagem;
 import br.edu.ifpb.pw2.model.Usuario;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class PostagemController {
     private PostagemDao postagemDao;
     
     @Autowired
-    private PostagemFacade postagemFacade;
+    private FavoritarDao favoritarDao;
     
     @RequestMapping(value = "/adicionar", method = RequestMethod.POST)
     public String adicionarPostagem(@RequestParam String mensagem, @Autowired HttpSession session) {
@@ -53,10 +54,45 @@ public class PostagemController {
 //        System.out.println(idPostagem);
         
         Postagem postagem = postagemDao.buscarPorId(idPostagem);
-//        
+       
         modelMap.addAttribute("postagem", postagem);
         
         return "postagem";
+    }
+    
+    @RequestMapping(value = "/favoritar/{id_postagem}", method = RequestMethod.GET)
+    public String favoritarPost(@PathVariable String id_postagem, @Autowired HttpSession session) {
+        
+        int idUsuario = (int) session.getAttribute("id_usuario");
+        
+        if(favoritarDao.adicionar(idUsuario, Integer.parseInt(id_postagem))) {
+            return "redirect:/feed";
+        }
+        
+        return "redirect:/feed";
+    }
+    
+    @RequestMapping(value = "/desfavoritar/{id_postagem}", method = RequestMethod.GET)
+    public String desfavoritarPost(@PathVariable String id_postagem, @Autowired HttpSession session) {
+        
+        int idUsuario = (int) session.getAttribute("id_usuario");
+        
+        if(favoritarDao.remover(idUsuario, Integer.parseInt(id_postagem))) {
+            return "redirect:/feed";
+        }
+        
+        return "redirect:/feed";
+    }
+    
+    @RequestMapping(value = "/favoritos", method = RequestMethod.GET)
+    public String postsFavoritos(@Autowired HttpSession session, ModelMap modelMap) {
+        int idUsuario = (int) session.getAttribute("id_usuario");
+        
+        List<Postagem> postagens = favoritarDao.listarPostagensFavoritas(idUsuario);
+        
+        modelMap.addAttribute("postagens", postagens);
+        
+        return "favoritos";
     }
     
 }

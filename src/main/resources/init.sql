@@ -24,6 +24,15 @@ create table seguindo (
     foreign key(id_seguindo) references usuario(id)
 );
 
+create table favorito (
+    id serial,
+    id_usuario int not null,
+    id_postagem int not null,
+    primary key(id),
+    foreign key(id_usuario) references usuario(id),
+    foreign key(id_postagem) references postagem(id)
+);
+
 insert into usuario(nome_usuario, senha, foto, descricao) values ('natan', '123', 'saodpasodps', 'Jogo FIFA e domino!');
 insert into usuario(nome_usuario, senha, foto, descricao) values ('jonas', '123', 'saodpasodps', 'Adoro uma cachaça!');
 insert into usuario(nome_usuario, senha, foto, descricao) values ('rudan', '123', 'saodpasodps', 'Jogo boa hoje, jogo bola amanha, jogo bola pra sempre!');

@@ -30,8 +30,7 @@ public class ViewConfiguration implements WebMvcConfigurer {
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/assets/**")
-                .addResourceLocations("/resources/**");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
 
 //        registry.addResourceHandler("/images/wallpapers/**")
 //                .addResourceLocations("file:/opt/Wallpapers/")

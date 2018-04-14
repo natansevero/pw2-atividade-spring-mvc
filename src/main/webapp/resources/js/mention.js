@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-function teste() {
+function mention() {
     var mensagem = document.getElementsByName('formPostarMensagem')[0][0].value;
-    var mention = mensagem.match(/@[A-z0-9]*/g)[0];
-    // array mensagemPartida
-    var mensagemPartida = mensagem.split(mention);
-    mention = '<a href="'+ mention +'">' + mention + '</a>';
+    var mentions = mensagem.match(/@[A-z0-9]*/g);
+       
+    for(var i = 0; i < mentions.length; i++) {
+        var mentionComHref = '<a href="/atividade-spring-mvc/'+ mentions[i] +'">' + mentions[i] + '</a>';
+        mensagem = mensagem.replace(mentions[i], mentionComHref);
+    }
     
-    var novaMensagem = mensagemPartida.join(mention);
+    document.getElementsByName('formPostarMensagem')[0][0].value = mensagem;
     
-    document.getElementsByName('formPostarMensagem')[0][0].value = novaMensagem;
-    console.log(document.getElementsByName('formPostarMensagem')[0][0].value)
 }

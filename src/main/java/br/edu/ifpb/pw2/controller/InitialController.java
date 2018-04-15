@@ -111,7 +111,24 @@ public class InitialController {
             
             return "usuario";
         }
+    }
+    
+    @RequestMapping(value = "@{nome}", method = RequestMethod.GET)
+    public String visualizarUmUsuarioComArroba(@PathVariable String nome, @Autowired HttpSession session, ModelMap modelMap) {
         
+        int idUsuario = (int) session.getAttribute("id_usuario");
         
+        Usuario usuario = usuarioDao.buscarPorNome(nome);
+        
+        if(usuario == null) return "404";
+        else {
+            List<Postagem> postagens = postagemDao.buscarTodosPostsDoUsuario(usuario);
+            
+            modelMap.addAttribute("usuario", usuario);
+            modelMap.addAttribute("postagens", postagens);
+            modelMap.addAttribute("estaSeguindo", usuarioDao.verificarSeguindo(idUsuario, usuario.getId()));
+            
+            return "usuario";
+        }
     }
 }

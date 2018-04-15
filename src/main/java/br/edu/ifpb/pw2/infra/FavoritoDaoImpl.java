@@ -67,7 +67,7 @@ public class FavoritoDaoImpl implements FavoritarDao {
 
     @Override
     public List<Postagem> listarPostagensFavoritas(int idUsuario) {
-        String sql = "select p.id, p.id_usuario, u.nome_usuario, p.mensagem from postagem p, favorito f, usuario u " +
+        String sql = "select p.id, p.id_usuario, u.nome_usuario, u.foto, p.mensagem from postagem p, favorito f, usuario u " +
                      "where f.id_usuario = ? and " +
                      "p.id = f.id_postagem and " + 
                      "u.id = p.id_usuario";
@@ -87,8 +87,9 @@ public class FavoritoDaoImpl implements FavoritarDao {
                 postagem.setId(rs.getInt(1));
                 u.setId(rs.getInt(2));
                 u.setNomeUsuario(rs.getString(3));
+                u.setFoto(rs.getString(4));
                 postagem.setUsuario(u);
-                postagem.setMensagem(rs.getString(4));
+                postagem.setMensagem(rs.getString(5));
                 
                 postagens.add(postagem);
             }

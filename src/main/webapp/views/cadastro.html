@@ -17,21 +17,21 @@
             <form th:action="@{/usuario/cadastrar}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label th:text="#{cadastro.labelNomeUsuario}"></label>
-                    <input type="text" name="nomeUsuario" class="form-control" />    
+                    <input type="text" name="nomeUsuario" class="form-control" pattern="[^(){}/<>[\]\\,'*´`^ªº.;:?°~ç\-+¨=§¬¢£&%$#!@|\x22]+" minlength="5" maxlength="15" required/>    
                 </div>
                 <div class="form-group">
                     <label th:text="#{cadastro.labelSenha}"></label>
-                    <input type="password" name="senha" class="form-control" />    
+                    <input type="password" name="senha" class="form-control" required />    
                 </div>
                 <br />
                 <div class="form-group">
                     <label th:text="#{cadastro.labelFoto}"></label>
-                    <input type="file" name="foto" />
+                    <input type="file" name="foto" accept="image/*" required />
                 </div>
                 <br />
                 <div class="form-group">
                     <label th:text="#{cadastro.labelDescricao}"></label>
-                    <textarea class="form-control" name="descricao" rows="3"></textarea>
+                    <textarea class="form-control" name="descricao" rows="3" required></textarea>
                 </div>
                 <br />
                 <button type="submit" class="btn btn-primary" th:text="#{cadastro.botaoCadastrar}"></button>

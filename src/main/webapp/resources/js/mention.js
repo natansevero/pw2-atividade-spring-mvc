@@ -7,10 +7,9 @@
 function mention() {
     var mensagem = document.getElementsByName('formPostarMensagem')[0][0].value;
     var mentions = mensagem.match(/@[A-z0-9]*/g);
-       
+    
     for(var i = 0; i < mentions.length; i++) {
-        var nomeParaPesquisa = mentions[i].replace('@', '');
-        var mentionComHref = '<a href="/atividade-spring-mvc/pesquisar?nome='+ nomeParaPesquisa +'">' + mentions[i] + '</a>';
+        var mentionComHref = '<a href="/atividade-spring-mvc/'+ mentions[i] +'">' + mentions[i] + '</a>';
         mensagem = mensagem.replace(mentions[i], mentionComHref);
     }
     

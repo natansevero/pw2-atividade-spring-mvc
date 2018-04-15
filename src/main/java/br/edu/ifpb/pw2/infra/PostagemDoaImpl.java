@@ -166,6 +166,41 @@ public class PostagemDoaImpl implements PostagemDao {
         
         return false;
     }
+
+    @Override
+    public List<Postagem> listarPostsDoUsuario(int id) {
+        String sql = "select u.nome_usuario, p.id, p.mensagem " +
+                     "from postagem p, usuario u " +
+                     "where p.id_usuario = ? and u.id = p.id_usuario";
+        
+        try {
+            PreparedStatement prepareStatement = con.getConnection().prepareStatement(sql);
+            prepareStatement.setInt(1, id);
+            
+            ResultSet rs = prepareStatement.executeQuery();
+            
+            List<Postagem> postagens = new ArrayList<>();
+            
+            while(rs.next()) {
+                Postagem postagem = new Postagem();
+                Usuario u = new Usuario();
+                
+                u.setNomeUsuario(rs.getString(1));
+                postagem.setUsuario(u);
+                postagem.setId(rs.getInt(2));
+                postagem.setMensagem(rs.getString(3));
+                
+                postagens.add(postagem);
+            }
+            
+            return postagens;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PostagemDoaImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+        return Collections.EMPTY_LIST;
+    }
     
     
     

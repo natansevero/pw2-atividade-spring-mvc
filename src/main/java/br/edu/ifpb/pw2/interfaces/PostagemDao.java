@@ -19,4 +19,5 @@ public interface PostagemDao {
     Postagem buscarPorId(int id);
     List<Postagem> todosOsPostsParaFeed(Usuario usuario);
     boolean excluir(int id);
+    List<Postagem> listarPostsDoUsuario(int id);
 }

@@ -94,8 +94,8 @@ public class InitialController {
         return "feed";
     }
     
-    @RequestMapping(value = "@{nome}", method = RequestMethod.GET)
-    public String visualizarUmUsuario(@PathVariable String nome, @Autowired HttpSession session, ModelMap modelMap) {
+    @RequestMapping(value = "/pesquisar", method = RequestMethod.GET)
+    public String visualizarUmUsuario(@RequestParam String nome, @Autowired HttpSession session, ModelMap modelMap) {
         
         int idUsuario = (int) session.getAttribute("id_usuario");
         

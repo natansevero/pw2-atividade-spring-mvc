@@ -5,11 +5,12 @@
  */
 package br.edu.ifpb.pw2.controller;
 
-import br.edu.ifpb.pw2.interfaces.PostagemDao;
 import br.edu.ifpb.pw2.interfaces.UsuarioDao;
 import br.edu.ifpb.pw2.model.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -29,6 +31,19 @@ public class UserController {
     
     @Autowired
     private UsuarioDao usuarioDao;
+    
+    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> retornarNomeUsuarios() {
+        List<Usuario> todosOsUsuarios = usuarioDao.buscarTodos();
+        
+        List<String> nomeDosUsuarios = new ArrayList<>();
+        for(Usuario usuario : todosOsUsuarios){
+            nomeDosUsuarios.add(usuario.getNomeUsuario());
+        }
+        
+        return nomeDosUsuarios;
+    }
     
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
     public String cadastrarUsuario(@RequestParam String nomeUsuario, @RequestParam String senha, @RequestParam MultipartFile foto, @RequestParam String descricao) throws IOException {

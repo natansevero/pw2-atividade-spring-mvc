@@ -33,6 +33,6 @@ create table favorito (
     foreign key(id_postagem) references postagem(id) on delete cascade
 );
 
-insert into usuario(nome_usuario, senha, foto, descricao) values ('natan', '123', 'saodpasodps', 'Jogo FIFA e domino!');
-insert into usuario(nome_usuario, senha, foto, descricao) values ('jonas', '123', 'saodpasodps', 'Adoro uma cachaça!');
-insert into usuario(nome_usuario, senha, foto, descricao) values ('rudan', '123', 'saodpasodps', 'Jogo boa hoje, jogo bola amanha, jogo bola pra sempre!');
+-- insert into usuario(nome_usuario, senha, foto, descricao) values ('natan', '123', 'saodpasodps', 'Jogo FIFA e domino!');
+-- insert into usuario(nome_usuario, senha, foto, descricao) values ('jonas', '123', 'saodpasodps', 'Adoro uma cachaça!');
+-- insert into usuario(nome_usuario, senha, foto, descricao) values ('rudan', '123', 'saodpasodps', 'Jogo boa hoje, jogo bola amanha, jogo bola pra sempre!');
